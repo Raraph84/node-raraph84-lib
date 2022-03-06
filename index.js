@@ -1,2 +1,4 @@
-exports.HttpServer = require("./src/HttpServer");
-exports.Request = require("./src/Request");
+module.exports = {
+    HttpServer: require("./src/HttpServer"),
+    Request: require("./src/Request")
+}
