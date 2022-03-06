@@ -1,0 +1,11 @@
+{
+  "name": "raraph84-lib",
+  "version": "1.1.0",
+  "description": "Ma librairie perso pour coder plus rapidement :)",
+  "main": "index.js",
+  "author": "Raraph84",
+  "license": "ISC",
+  "dependencies": {
+    "events": "^3.3.0"
+  }
+}
