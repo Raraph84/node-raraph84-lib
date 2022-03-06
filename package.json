@@ -3,8 +3,16 @@
   "version": "1.1.2",
   "description": "Ma librairie perso pour coder plus rapidement :)",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Raraph84/node-raraph84-lib.git"
+  },
   "author": "Raraph84",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Raraph84/node-raraph84-lib/issues"
+  },
+  "homepage": "https://github.com/Raraph84/node-raraph84-lib#readme",
   "dependencies": {
     "events": "^3.3.0"
   }
