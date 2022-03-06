@@ -1,5 +1,6 @@
 module.exports = {
     HttpServer: require("./src/HttpServer"),
     Request: require("./src/Request"),
-    formatDuration: require("./src/otherUtils").formatDuration
+    formatDuration: require("./src/otherUtils").formatDuration,
+    filterEndpointsByPath: require("./src/otherUtils").filterEndpointsByPath
 }
