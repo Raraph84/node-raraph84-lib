@@ -1,4 +1,5 @@
 const { MessageReaction, User } = require("discord.js");
+const Pool = require("mysql/lib/Pool");
 const Request = require("./Request");
 
 /**
@@ -130,4 +131,17 @@ module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
     }
 
     fetch();
+});
+
+/**
+ * @param {Pool} database 
+ * @param {String} sql 
+ * @param {Array<String>} args 
+ * @returns {Promise} 
+ */
+module.exports.query = (database, sql, args = []) => new Promise((resolve, reject) => {
+    database.query(sql, args, (error, result) => {
+        if (error) reject(error);
+        else resolve(result);
+    });
 });
