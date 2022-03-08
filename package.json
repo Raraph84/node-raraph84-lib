@@ -14,6 +14,7 @@
   },
   "homepage": "https://github.com/Raraph84/node-raraph84-lib#readme",
   "dependencies": {
+    "discord.js": "^13.6.0",
     "events": "^3.3.0",
     "http": "^0.0.1-security"
   }

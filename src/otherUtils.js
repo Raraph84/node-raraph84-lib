@@ -1,3 +1,4 @@
+const { MessageReaction, User } = require("discord.js");
 const Request = require("./Request");
 
 /**
@@ -100,3 +101,33 @@ module.exports.filterEndpointsByPath = (endpoints, request) => endpoints.filter(
  * @property {string} method 
  * @property {boolean} requireAuth 
  */
+
+/**
+ * @param {String} uuid 
+ * @returns {String} 
+ */
+module.exports.addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}-${uuid.substring(20)}`;
+
+/**
+ * @param {MessageReaction} reaction 
+ * @returns {Promise<Array<User>>}
+ */
+module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
+
+    const result = [];
+
+    const fetch = (after = null) => {
+
+        reaction.users.fetch({ after }).then((users) => {
+
+            if (users.size < 1) {
+                resolve(result);
+            } else {
+                users.forEach((user) => result.push(user));
+                fetch(users.last().id);
+            }
+        });
+    }
+
+    fetch();
+});
