@@ -110,7 +110,7 @@ module.exports.addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.subst
 
 /**
  * @param {MessageReaction} reaction 
- * @returns {Promise<User[]>}
+ * @returns {Promise<User[]>} 
  */
 module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
 
