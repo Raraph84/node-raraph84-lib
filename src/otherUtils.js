@@ -1,10 +1,9 @@
 const { MessageReaction, User } = require("discord.js");
-const Pool = require("mysql/lib/Pool");
 const Request = require("./Request");
 
 /**
- * @param {number} time 
- * @returns {string} 
+ * @param {Number} time 
+ * @returns {String} 
  */
 module.exports.formatDuration = (time) => {
 
@@ -63,9 +62,9 @@ module.exports.formatDuration = (time) => {
 }
 
 /**
- * @param {Array<Endpoint>} endpoints 
+ * @param {Endpoint[]} endpoints 
  * @param {Request} request 
- * @returns {Array<Endpoint>} 
+ * @returns {Endpoint[]} 
  */
 module.exports.filterEndpointsByPath = (endpoints, request) => endpoints.filter((endpoint) => {
 
@@ -98,9 +97,9 @@ module.exports.filterEndpointsByPath = (endpoints, request) => endpoints.filter(
 
 /**
  * @typedef EndpointInfos 
- * @property {string} path 
- * @property {string} method 
- * @property {boolean} requireAuth 
+ * @property {String} path 
+ * @property {String} method 
+ * @property {Boolean} requireAuth 
  */
 
 /**
@@ -111,7 +110,7 @@ module.exports.addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.subst
 
 /**
  * @param {MessageReaction} reaction 
- * @returns {Promise<Array<User>>}
+ * @returns {Promise<User[]>}
  */
 module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
 
@@ -134,9 +133,9 @@ module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
 });
 
 /**
- * @param {Pool} database 
+ * @param {import("mysql").Pool} database 
  * @param {String} sql 
- * @param {Array<String>} args 
+ * @param {String[]} args 
  * @returns {Promise} 
  */
 module.exports.query = (database, sql, args = []) => new Promise((resolve, reject) => {
