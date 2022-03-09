@@ -1,4 +1,3 @@
-/// <reference types="node" />
 export = Request;
 declare class Request {
     /**
@@ -10,9 +9,9 @@ declare class Request {
     req: IncomingMessage;
     res: ServerResponse;
     data: string;
-    method: string;
-    ip: string | string[];
-    url: string;
+    method: any;
+    ip: any;
+    url: any;
     searchParams: URLSearchParams;
     /**
      * @param {Number} code
@@ -20,6 +19,4 @@ declare class Request {
      */
     end(code: number, data: any | string): void;
 }
-import { IncomingMessage } from "http";
-import { ServerResponse } from "http";
 //# sourceMappingURL=Request.d.ts.map

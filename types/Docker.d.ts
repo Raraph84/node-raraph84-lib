@@ -1,10 +1,8 @@
 export = EventListener;
-declare class EventListener extends EventEmitter {
-    constructor();
+declare class EventListener {
     closed: boolean;
     listen(): void;
     close(): void;
     #private;
 }
-import EventEmitter = require("events");
 //# sourceMappingURL=Docker.d.ts.map

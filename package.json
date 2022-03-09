@@ -1,8 +1,9 @@
 {
   "name": "raraph84-lib",
-  "version": "1.8.2",
+  "version": "1.8.3",
   "description": "Ma librairie perso pour coder plus rapidement :)",
   "main": "./src/index.js",
+  "types": "./types/index.d.ts",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Raraph84/node-raraph84-lib.git"

@@ -1,6 +1,5 @@
 export = HttpServer;
-declare class HttpServer extends EventEmitter {
-    constructor();
+declare class HttpServer {
     /**
      * @param {Number} port
      * @returns {Promise}
@@ -8,5 +7,4 @@ declare class HttpServer extends EventEmitter {
     listen(port: number): Promise<any>;
     #private;
 }
-import EventEmitter = require("events");
 //# sourceMappingURL=HttpServer.d.ts.map
