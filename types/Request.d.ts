@@ -13,6 +13,11 @@ declare class Request {
     url: any;
     searchParams: URLSearchParams;
     /**
+     * @param {String} name
+     * @param {String} value
+     */
+    setHeader(name: string, value: string): void;
+    /**
      * @param {Number} code
      * @param {Object|String} data
      */

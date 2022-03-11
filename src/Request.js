@@ -25,6 +25,14 @@ module.exports = class Request {
     }
 
     /**
+     * @param {String} name 
+     * @param {String} value 
+     */
+    setHeader(name, value) {
+        this.#res.setHeader(name, value);
+    }
+
+    /**
      * @param {Number} code 
      * @param {Object|String} data 
      */
