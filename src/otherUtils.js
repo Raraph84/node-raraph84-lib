@@ -1,6 +1,7 @@
 const Request = require("./Request");
 
 /**
+ * Format duration in french
  * @param {Number} time 
  * @returns {String} 
  */
@@ -61,6 +62,7 @@ module.exports.formatDuration = (time) => {
 }
 
 /**
+ * Filter endpoints with a request and set url params to endpoint
  * @param {Endpoint[]} endpoints 
  * @param {Request} request 
  * @returns {Endpoint[]} 
@@ -102,12 +104,14 @@ module.exports.filterEndpointsByPath = (endpoints, request) => endpoints.filter(
  */
 
 /**
+ * Add dashes to uuid
  * @param {String} uuid 
  * @returns {String} 
  */
 module.exports.addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}-${uuid.substring(20)}`;
 
 /**
+ * Fetch all users who reacted to a reaction 
  * @param {MessageReaction} reaction 
  * @returns {Promise<User[]>} 
  */
@@ -132,6 +136,7 @@ module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
 });
 
 /**
+ * Run sql query with await/async
  * @param {import("mysql").Pool} database 
  * @param {String} sql 
  * @param {String[]} args 
@@ -143,3 +148,15 @@ module.exports.query = (database, sql, args = []) => new Promise((resolve, rejec
         else resolve(result);
     });
 });
+
+/**
+ * Generate random alphanumeric string with the given length
+ * @param {Number} length 
+ * @returns {String} 
+ */
+module.exports.randomString = (length) => {
+    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    let result = "";
+    for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
+    return result;
+}

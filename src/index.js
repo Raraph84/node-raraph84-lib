@@ -6,3 +6,4 @@ exports.filterEndpointsByPath = require("./otherUtils").filterEndpointsByPath;
 exports.addDashesToUuid = require("./otherUtils").addDashesToUuid;
 exports.fetchAllUsers = require("./otherUtils").fetchAllUsers;
 exports.query = require("./otherUtils").query;
+exports.randomString = require("./otherUtils").randomString;

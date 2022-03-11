@@ -12,4 +12,5 @@ export var filterEndpointsByPath: (endpoints: import("./otherUtils").Endpoint[],
 export var addDashesToUuid: (uuid: string) => string;
 export var fetchAllUsers: (reaction: MessageReaction) => Promise<User[]>;
 export var query: (database: any, sql: string, args?: string[]) => Promise<any>;
+export var randomString: (length: number) => string;
 //# sourceMappingURL=index.d.ts.map

@@ -3,6 +3,7 @@ export function filterEndpointsByPath(endpoints: Endpoint[], request: Request): 
 export function addDashesToUuid(uuid: string): string;
 export function fetchAllUsers(reaction: MessageReaction): Promise<User[]>;
 export function query(database: any, sql: string, args?: string[]): Promise<any>;
+export function randomString(length: number): string;
 export type Endpoint = {
     infos: EndpointInfos;
     params: any;
