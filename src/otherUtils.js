@@ -1,4 +1,3 @@
-const { MessageReaction, User } = require("discord.js");
 const Request = require("./Request");
 
 /**
