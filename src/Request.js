@@ -2,6 +2,9 @@ const { IncomingMessage, ServerResponse } = require("http");
 
 module.exports = class Request {
 
+    /** @type {ServerResponse} */
+    #res = null;
+
     /**
      * @param {IncomingMessage} req 
      * @param {ServerResponse} res 
@@ -9,10 +12,10 @@ module.exports = class Request {
      */
     constructor(req, res, data) {
 
-        this.req = req;
-        this.res = res;
+        this.#res = res;
         this.data = data;
         this.method = req.method.toUpperCase();
+        this.headers = req.headers;
         this.ip = req.headers["x-forwarded-for"] || "127.0.0.1";
 
         const urlSplitted = req.url.split("?");
@@ -28,12 +31,12 @@ module.exports = class Request {
     end(code, data) {
 
         if (typeof data === "object" || typeof data === "string")
-            this.res.setHeader("Content-Type", "application/json");
+            this.#res.setHeader("Content-Type", "application/json");
 
-        this.res.writeHead(code);
+        this.#res.writeHead(code);
 
-        if (typeof data === "object") this.res.end(JSON.stringify(Object.assign({ code }, data)));
-        else if (typeof data === "string") this.res.end(JSON.stringify({ code, message: data }));
-        else this.res.end();
+        if (typeof data === "object") this.#res.end(JSON.stringify(Object.assign({ code }, data)));
+        else if (typeof data === "string") this.#res.end(JSON.stringify({ code, message: data }));
+        else this.#res.end();
     }
 }

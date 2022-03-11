@@ -6,10 +6,9 @@ declare class Request {
      * @param {String} data
      */
     constructor(req: IncomingMessage, res: ServerResponse, data: string);
-    req: IncomingMessage;
-    res: ServerResponse;
     data: string;
     method: any;
+    headers: any;
     ip: any;
     url: any;
     searchParams: URLSearchParams;
@@ -18,5 +17,6 @@ declare class Request {
      * @param {Object|String} data
      */
     end(code: number, data: any | string): void;
+    #private;
 }
 //# sourceMappingURL=Request.d.ts.map
