@@ -5,4 +5,3 @@ declare class EventListener {
     close(): void;
     #private;
 }
-//# sourceMappingURL=Docker.d.ts.map

@@ -5,7 +5,7 @@ declare class Request {
      * @param {ServerResponse} res
      * @param {String} data
      */
-    constructor(req: IncomingMessage, res: ServerResponse, data: string);
+    constructor(req: any, res: any, data: string);
     data: string;
     method: any;
     headers: any;
@@ -24,4 +24,3 @@ declare class Request {
     end(code: number, data: any | string): void;
     #private;
 }
-//# sourceMappingURL=Request.d.ts.map
