@@ -1,3 +1,4 @@
+exports.Base64 = require("./Base64");
 exports.HttpServer = require("./HttpServer");
 exports.Request = require("./Request");
 exports.Docker = require("./Docker");

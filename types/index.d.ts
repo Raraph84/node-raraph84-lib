@@ -1,3 +1,6 @@
+export var Base64: {
+    new (): import("./Base64");
+};
 export var HttpServer: {
     new (): import("./HttpServer");
 };
