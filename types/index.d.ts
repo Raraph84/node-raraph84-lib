@@ -1,5 +1,7 @@
 export var Base64: {
     new (): import("./Base64");
+    encode(text: string): string;
+    decode(text: string): string;
 };
 export var HttpServer: {
     new (): import("./HttpServer");

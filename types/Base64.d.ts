@@ -1,5 +1,13 @@
 export = Base64;
 declare class Base64 {
-    encode(text: any): any;
-    decode(text: any): any;
+    /**
+     * @param {String} text
+     * @returns {String}
+     */
+    static encode(text: string): string;
+    /**
+     * @param {String} text
+     * @returns {String}
+     */
+    static decode(text: string): string;
 }
