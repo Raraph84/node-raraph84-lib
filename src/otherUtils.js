@@ -201,7 +201,7 @@ module.exports.getTranslatedMonth = (date) => {
  * @returns {Date} 
  */
 module.exports.getMonday = (date) => {
-    let monday = getDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    let monday = this.getDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
     while (monday.getDay() !== 1)
         monday.setDate(monday.getDate() - 1);
     return monday;

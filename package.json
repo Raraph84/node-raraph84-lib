@@ -1,6 +1,6 @@
 {
   "name": "raraph84-lib",
-  "version": "1.13.0",
+  "version": "1.13.1",
   "description": "Ma librairie perso pour coder plus rapidement :)",
   "main": "./src/index.js",
   "types": "./types/index.d.ts",
