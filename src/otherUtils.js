@@ -169,7 +169,7 @@ module.exports.randomString = (length) => {
  */
 module.exports.getDate = (year, month, day) => {
     const date = new Date(year, month - 1, day, 1);
-    if (date.getUTCDate() !== day) date.setHours(date.getUTCHours() + 1);
+    if (date.getUTCDate() !== day) date.setUTCHours(date.getUTCHours() + 1);
     return date;
 }
 
@@ -194,4 +194,15 @@ module.exports.getWeekNumber = (date) => {
 module.exports.getTranslatedMonth = (date) => {
     const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     return months[date.getMonth()];
+}
+
+/**
+ * @param {Date} date 
+ * @returns {Date} 
+ */
+module.exports.getMonday = (date) => {
+    let monday = getDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
+    while (monday.getDay() !== 1)
+        monday.setDate(monday.getDate() - 1);
+    return monday;
 }

@@ -11,3 +11,4 @@ exports.randomString = require("./otherUtils").randomString;
 exports.getDate = require("./otherUtils").getDate;
 exports.getWeekNumber = require("./otherUtils").getWeekNumber;
 exports.getTranslatedMonth = require("./otherUtils").getTranslatedMonth;
+exports.getMonday = require("./otherUtils").getMonday;

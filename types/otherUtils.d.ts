@@ -7,6 +7,7 @@ export function randomString(length: number): string;
 export function getDate(year: number, month: number, day: number): Date;
 export function getWeekNumber(date: Date): number;
 export function getTranslatedMonth(date: Date): string;
+export function getMonday(date: Date): Date;
 export type Endpoint = {
     infos: EndpointInfos;
     params: any;
