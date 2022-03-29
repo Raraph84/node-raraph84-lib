@@ -8,3 +8,6 @@ exports.addDashesToUuid = require("./otherUtils").addDashesToUuid;
 exports.fetchAllUsers = require("./otherUtils").fetchAllUsers;
 exports.query = require("./otherUtils").query;
 exports.randomString = require("./otherUtils").randomString;
+exports.getDate = require("./otherUtils").getDate;
+exports.getWeekNumber = require("./otherUtils").getWeekNumber;
+exports.getTranslatedMonth = require("./otherUtils").getTranslatedMonth;

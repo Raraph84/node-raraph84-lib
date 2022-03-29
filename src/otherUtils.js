@@ -160,3 +160,38 @@ module.exports.randomString = (length) => {
     for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
     return result;
 }
+
+/**
+ * @param {Number} year 
+ * @param {Number} month 
+ * @param {Number} day 
+ * @returns {Date} 
+ */
+module.exports.getDate = (year, month, day) => {
+    const date = new Date(year, month - 1, day, 1);
+    if (date.getUTCDate() !== day) date.setHours(date.getUTCHours() + 1);
+    return date;
+}
+
+/**
+ * @param {Date} date 
+ * @returns {Number} 
+ */
+module.exports.getWeekNumber = (date) => {
+    const tdt = new Date(date.valueOf());
+    const dayn = (date.getDay() + 6) % 7;
+    tdt.setDate(tdt.getDate() - dayn + 3);
+    const firstThursday = tdt.valueOf();
+    tdt.setMonth(0, 1);
+    if (tdt.getDay() !== 4) tdt.setMonth(0, 1 + ((4 - tdt.getDay()) + 7) % 7);
+    return 1 + Math.ceil((firstThursday - tdt) / 604800000);
+}
+
+/**
+ * @param {Date} date 
+ * @returns {String} 
+ */
+module.exports.getTranslatedMonth = (date) => {
+    const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+    return months[date.getMonth()];
+}

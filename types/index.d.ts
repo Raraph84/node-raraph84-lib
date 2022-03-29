@@ -18,3 +18,6 @@ export var addDashesToUuid: (uuid: string) => string;
 export var fetchAllUsers: (reaction: any) => Promise<any[]>;
 export var query: (database: any, sql: string, args?: string[]) => Promise<any>;
 export var randomString: (length: number) => string;
+export var getDate: (year: number, month: number, day: number) => Date;
+export var getWeekNumber: (date: Date) => number;
+export var getTranslatedMonth: (date: Date) => string;
