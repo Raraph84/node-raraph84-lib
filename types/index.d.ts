@@ -9,9 +9,7 @@ export var HttpServer: {
 export var Request: {
     new (req: any, res: any, data: string): import("./Request");
 };
-export var Docker: {
-    new (): import("./Docker");
-};
+export var Docker: typeof import("./Docker");
 export var formatDuration: (time: number) => string;
 export var filterEndpointsByPath: (endpoints: import("./otherUtils").Endpoint[], request: import("./Request")) => import("./otherUtils").Endpoint[];
 export var addDashesToUuid: (uuid: string) => string;

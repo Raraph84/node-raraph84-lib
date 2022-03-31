@@ -1,5 +1,4 @@
-export = EventListener;
-declare class EventListener {
+export class EventListener {
     closed: boolean;
     listen(): void;
     close(): void;
