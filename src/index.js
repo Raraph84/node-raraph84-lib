@@ -1,14 +1,18 @@
-exports.Base64 = require("./Base64");
-exports.HttpServer = require("./HttpServer");
-exports.Request = require("./Request");
-exports.Docker = require("./Docker");
-exports.formatDuration = require("./otherUtils").formatDuration;
-exports.filterEndpointsByPath = require("./otherUtils").filterEndpointsByPath;
-exports.addDashesToUuid = require("./otherUtils").addDashesToUuid;
-exports.fetchAllUsers = require("./otherUtils").fetchAllUsers;
-exports.query = require("./otherUtils").query;
-exports.randomString = require("./otherUtils").randomString;
-exports.getDate = require("./otherUtils").getDate;
-exports.getWeekNumber = require("./otherUtils").getWeekNumber;
-exports.getTranslatedMonth = require("./otherUtils").getTranslatedMonth;
-exports.getMonday = require("./otherUtils").getMonday;
+const OtherUtils = require("./otherUtils");
+
+module.exports = {
+    Base64: require("./Base64"),
+    HttpServer: require("./HttpServer"),
+    Request: require("./Request"),
+    Docker: require("./Docker"),
+    formatDuration: OtherUtils.formatDuration,
+    filterEndpointsByPath: OtherUtils.filterEndpointsByPath,
+    addDashesToUuid: OtherUtils.addDashesToUuid,
+    fetchAllUsers: OtherUtils.fetchAllUsers,
+    query: OtherUtils.query,
+    randomString: OtherUtils.randomString,
+    getDate: OtherUtils.getDate,
+    getWeekNumber: OtherUtils.getWeekNumber,
+    getTranslatedMonth: OtherUtils.getTranslatedMonth,
+    getMonday: OtherUtils.getMonday
+}

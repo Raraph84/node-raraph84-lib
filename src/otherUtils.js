@@ -1,11 +1,9 @@
-const Request = require("./Request");
-
 /**
  * Format duration in french
  * @param {Number} time 
  * @returns {String} 
  */
-module.exports.formatDuration = (time) => {
+const formatDuration = (time) => {
 
     const units = [
         {
@@ -64,10 +62,10 @@ module.exports.formatDuration = (time) => {
 /**
  * Filter endpoints with a request and set url params to endpoint
  * @param {Endpoint[]} endpoints 
- * @param {Request} request 
+ * @param {import("./Request")} request 
  * @returns {Endpoint[]} 
  */
-module.exports.filterEndpointsByPath = (endpoints, request) => endpoints.filter((endpoint) => {
+const filterEndpointsByPath = (endpoints, request) => endpoints.filter((endpoint) => {
 
     const currentParams = request.url.split("/");
     const requiredParams = endpoint.infos.path.split("/");
@@ -108,14 +106,14 @@ module.exports.filterEndpointsByPath = (endpoints, request) => endpoints.filter(
  * @param {String} uuid 
  * @returns {String} 
  */
-module.exports.addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}-${uuid.substring(20)}`;
+const addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}-${uuid.substring(20)}`;
 
 /**
  * Fetch all users who reacted to a reaction 
- * @param {MessageReaction} reaction 
- * @returns {Promise<User[]>} 
+ * @param {import("discord.js").MessageReaction} reaction 
+ * @returns {Promise<import("discord.js").User[]>} 
  */
-module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
+const fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
 
     const result = [];
 
@@ -142,7 +140,7 @@ module.exports.fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
  * @param {String[]} args 
  * @returns {Promise} 
  */
-module.exports.query = (database, sql, args = []) => new Promise((resolve, reject) => {
+const query = (database, sql, args = []) => new Promise((resolve, reject) => {
     database.query(sql, args, (error, result) => {
         if (error) reject(error);
         else resolve(result);
@@ -154,7 +152,7 @@ module.exports.query = (database, sql, args = []) => new Promise((resolve, rejec
  * @param {Number} length 
  * @returns {String} 
  */
-module.exports.randomString = (length) => {
+const randomString = (length) => {
     const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
     let result = "";
     for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
@@ -167,7 +165,7 @@ module.exports.randomString = (length) => {
  * @param {Number} day 
  * @returns {Date} 
  */
-module.exports.getDate = (year, month, day) => {
+const getDate = (year, month, day) => {
     const date = new Date(year, month - 1, day, 1);
     if (date.getUTCDate() !== day) date.setUTCHours(date.getUTCHours() + 1);
     return date;
@@ -177,7 +175,7 @@ module.exports.getDate = (year, month, day) => {
  * @param {Date} date 
  * @returns {Number} 
  */
-module.exports.getWeekNumber = (date) => {
+const getWeekNumber = (date) => {
     const tdt = new Date(date.valueOf());
     const dayn = (date.getDay() + 6) % 7;
     tdt.setDate(tdt.getDate() - dayn + 3);
@@ -191,7 +189,7 @@ module.exports.getWeekNumber = (date) => {
  * @param {Date} date 
  * @returns {String} 
  */
-module.exports.getTranslatedMonth = (date) => {
+const getTranslatedMonth = (date) => {
     const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
     return months[date.getMonth()];
 }
@@ -200,9 +198,22 @@ module.exports.getTranslatedMonth = (date) => {
  * @param {Date} date 
  * @returns {Date} 
  */
-module.exports.getMonday = (date) => {
+const getMonday = (date) => {
     let monday = this.getDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
     while (monday.getDay() !== 1)
         monday.setDate(monday.getDate() - 1);
     return monday;
+}
+
+module.exports = {
+    formatDuration,
+    filterEndpointsByPath,
+    addDashesToUuid,
+    fetchAllUsers,
+    query,
+    randomString,
+    getDate,
+    getWeekNumber,
+    getTranslatedMonth,
+    getMonday,
 }

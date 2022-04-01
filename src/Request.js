@@ -1,13 +1,11 @@
-const { IncomingMessage, ServerResponse } = require("http");
+class Request {
 
-module.exports = class Request {
-
-    /** @type {ServerResponse} */
+    /** @type {import("http").ServerResponse} */
     #res = null;
 
     /**
-     * @param {IncomingMessage} req 
-     * @param {ServerResponse} res 
+     * @param {import("http").IncomingMessage} req 
+     * @param {import("http").ServerResponse} res 
      * @param {String} data 
      */
     constructor(req, res, data) {
@@ -48,3 +46,5 @@ module.exports = class Request {
         else this.#res.end();
     }
 }
+
+module.exports = Request;

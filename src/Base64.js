@@ -1,4 +1,4 @@
-module.exports = class Base64 {
+class Base64 {
 
     /**
      * @param {String} text 
@@ -16,3 +16,5 @@ module.exports = class Base64 {
         return Buffer.from(text, "base64").toString("utf-8");
     }
 }
+
+module.exports = Base64;
