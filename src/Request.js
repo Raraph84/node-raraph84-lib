@@ -14,7 +14,7 @@ class Request {
         this.data = data;
         this.method = req.method.toUpperCase();
         this.headers = req.headers;
-        this.ip = req.headers["x-forwarded-for"] || "127.0.0.1";
+        this.ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress.slice(7);
 
         const urlSplitted = req.url.split("?");
         this.url = urlSplitted.shift();
