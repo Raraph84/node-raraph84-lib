@@ -106,7 +106,7 @@ const filterEndpointsByPath = (endpoints, request) => endpoints.filter((endpoint
  * @param {String} uuid 
  * @returns {String} 
  */
-const addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 4)}-${uuid.substring(12, 4)}-${uuid.substring(16, 4)}-${uuid.substring(20)}`;
+const addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 12)}-${uuid.substring(12, 16)}-${uuid.substring(16, 20)}-${uuid.substring(20)}`;
 
 /**
  * Fetch all users who reacted to a reaction 
