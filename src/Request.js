@@ -45,6 +45,17 @@ class Request {
         else if (typeof data === "string") this.#res.end(JSON.stringify({ code, message: data }));
         else this.#res.end();
     }
+
+    /**
+     * @param {Buffer} buffer 
+     * @param {String} mime 
+     */
+    endFile(buffer, mime) {
+
+        this.#res.setHeader("Content-Type", mime);
+        this.#res.writeHead(200);
+        this.#res.end(buffer);
+    }
 }
 
 module.exports = Request;
