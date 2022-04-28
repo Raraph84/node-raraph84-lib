@@ -2,7 +2,7 @@ const EventEmitter = require("events");
 const Http = require("http");
 const Request = require("./Request");
 
-class HttpServer extends EventEmitter {
+module.exports = class HttpServer extends EventEmitter {
 
     /** @type {Http.Server} */
     #server = null;
@@ -37,5 +37,3 @@ class HttpServer extends EventEmitter {
         });
     }
 }
-
-module.exports = HttpServer;

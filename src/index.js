@@ -2,9 +2,10 @@ const OtherUtils = require("./otherUtils");
 
 module.exports = {
     Base64: require("./Base64"),
+    DockerEventListener: require("./DockerEventListener"),
     HttpServer: require("./HttpServer"),
+    MojangAPI: require("./MojangAPI"),
     Request: require("./Request"),
-    Docker: require("./Docker"),
     formatDuration: OtherUtils.formatDuration,
     filterEndpointsByPath: OtherUtils.filterEndpointsByPath,
     addDashesToUuid: OtherUtils.addDashesToUuid,

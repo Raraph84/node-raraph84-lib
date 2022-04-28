@@ -1,6 +1,6 @@
 {
   "name": "raraph84-lib",
-  "version": "1.16.0",
+  "version": "2.0.0",
   "description": "Ma librairie perso pour coder plus rapidement :)",
   "main": "./src/index.js",
   "repository": {
@@ -15,7 +15,8 @@
   "homepage": "https://github.com/Raraph84/node-raraph84-lib#readme",
   "dependencies": {
     "dockerode": "^3.3.1",
-    "mysql": "^2.18.1"
+    "mysql": "^2.18.1",
+    "node-fetch": "^2.6.7"
   },
   "devDependencies": {
     "typescript": "^4.6.2"

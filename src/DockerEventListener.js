@@ -1,15 +1,14 @@
 const EventEmitter = require("events");
-const Docker = require("dockerode");
 const { PassThrough } = require("stream");
+const Docker = require("dockerode");
 
-class EventListener extends EventEmitter {
+module.exports = class DockerEventListener extends EventEmitter {
 
     /** @type {import("dockerode")} */
     #docker = null;
     #stream = null;
 
     /**
-     * 
      * @param {import("dockerode")} docker 
      */
     constructor(docker = new Docker()) {
@@ -59,7 +58,3 @@ class EventListener extends EventEmitter {
         this.#stream.destroy();
     }
 }
-
-module.exports = {
-    EventListener
-};

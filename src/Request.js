@@ -1,4 +1,4 @@
-class Request {
+module.exports = class Request {
 
     /** @type {import("http").ServerResponse} */
     #res = null;
@@ -57,5 +57,3 @@ class Request {
         this.#res.end(buffer);
     }
 }
-
-module.exports = Request;
