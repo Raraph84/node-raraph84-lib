@@ -205,6 +205,13 @@ const getMonday = (date) => {
     return monday;
 }
 
+/**
+ * @param {String} text 
+ * @param {Number} limit 
+ * @returns {String} 
+ */
+const addDots = (text, limit) => text.length > limit ? text.substring(0, limit - 3) + "..." : text;
+
 module.exports = {
     formatDuration,
     filterEndpointsByPath,
@@ -216,4 +223,5 @@ module.exports = {
     getWeekNumber,
     getTranslatedMonth,
     getMonday,
+    addDots
 }

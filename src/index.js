@@ -15,5 +15,6 @@ module.exports = {
     getDate: OtherUtils.getDate,
     getWeekNumber: OtherUtils.getWeekNumber,
     getTranslatedMonth: OtherUtils.getTranslatedMonth,
-    getMonday: OtherUtils.getMonday
+    getMonday: OtherUtils.getMonday,
+    addDots: OtherUtils.addDots
 }
