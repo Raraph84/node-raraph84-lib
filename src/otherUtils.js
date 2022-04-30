@@ -212,6 +212,16 @@ const getMonday = (date) => {
  */
 const addDots = (text, limit) => text.length > limit ? text.substring(0, limit - 3) + "..." : text;
 
+const sortObjectsByStringField = (items, func) => {
+    return items.sort((a, b) => {
+        if (func(a) < func(b))
+            return -1;
+        if (func(a) > func(b))
+            return 1;
+        return 0;
+    });
+}
+
 module.exports = {
     formatDuration,
     filterEndpointsByPath,
@@ -223,5 +233,6 @@ module.exports = {
     getWeekNumber,
     getTranslatedMonth,
     getMonday,
-    addDots
+    addDots,
+    sortObjectsByStringField
 }
