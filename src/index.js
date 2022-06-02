@@ -17,5 +17,6 @@ module.exports = {
     getTranslatedMonth: OtherUtils.getTranslatedMonth,
     getMonday: OtherUtils.getMonday,
     addDots: OtherUtils.addDots,
-    sortObjectsByStringField: OtherUtils.sortObjectsByStringField
+    sortObjectsByStringField: OtherUtils.sortObjectsByStringField,
+    getConfig: OtherUtils.getConfig
 }

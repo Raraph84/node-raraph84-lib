@@ -222,6 +222,8 @@ const sortObjectsByStringField = (items, func) => {
     });
 }
 
+const getConfig = (dirPath) => require("fs").existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : require(dirPath + "/config.json");
+
 module.exports = {
     formatDuration,
     filterEndpointsByPath,
@@ -234,5 +236,6 @@ module.exports = {
     getTranslatedMonth,
     getMonday,
     addDots,
-    sortObjectsByStringField
+    sortObjectsByStringField,
+    getConfig
 }
