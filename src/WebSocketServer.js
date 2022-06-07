@@ -35,19 +35,20 @@ module.exports = class WebSocketServer extends EventEmitter {
                     return;
                 }
 
-                if (typeof message.command === "undefined") {
+                const command = message.command;
+                delete message.command;
+
+                if (typeof command === "undefined") {
                     client.close("Missing command");
                     return;
                 }
 
-                if (typeof message.command !== "string") {
+                if (typeof command !== "string") {
                     client.close("Command must be a string");
                     return;
                 }
 
-                delete message.command;
-
-                this.emit("command", message.command, client, message);
+                this.emit("command", command, client, message);
             });
 
             socket.on("close", () => {
