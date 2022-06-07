@@ -6,6 +6,8 @@ module.exports = {
     HttpServer: require("./HttpServer"),
     MojangAPI: require("./MojangAPI"),
     Request: require("./Request"),
+    WebSocketClient: require("./WebSocketClient"),
+    WebSocketServer: require("./WebSocketServer"),
     formatDuration: OtherUtils.formatDuration,
     filterEndpointsByPath: OtherUtils.filterEndpointsByPath,
     addDashesToUuid: OtherUtils.addDashesToUuid,
