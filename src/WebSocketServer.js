@@ -11,6 +11,7 @@ module.exports = class WebSocketServer extends EventEmitter {
 
         super();
 
+        /** @type {import("./WebSocketClient")[]} */
         this.clients = [];
 
         this.#server = new WebSocket.Server({ port });
