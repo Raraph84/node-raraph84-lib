@@ -15,8 +15,9 @@ module.exports = class Request {
         this.method = req.method.toUpperCase();
         this.headers = req.headers;
         this.ip = req.headers["x-forwarded-for"] || req.socket.remoteAddress.slice(7) || "127.0.0.1";
+        this.urlParams = {};
 
-        const urlSplitted = req.url.split("?");
+        const urlSplitted = decodeURI(req.url).split("?");
         this.url = urlSplitted.shift();
         this.searchParams = new URLSearchParams(urlSplitted.join("?"));
         if (this.url.endsWith("/") && this.url !== "/") this.url = this.url.slice(0, this.url.length - 1);
