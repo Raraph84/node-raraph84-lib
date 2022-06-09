@@ -1,3 +1,5 @@
+const Fs = require("fs");
+
 /**
  * Format duration in french
  * @param {Number} time 
@@ -222,7 +224,7 @@ const sortObjectsByStringField = (items, func) => {
     });
 }
 
-const getConfig = (dirPath) => require("fs").existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : require(dirPath + "/config.json");
+const getConfig = (dirPath) => Object.assign(require(dirPath + "/config.json"), Fs.existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : {});
 
 module.exports = {
     formatDuration,
