@@ -6,7 +6,7 @@ module.exports = class WebSocketClient {
      */
     constructor(socket, request) {
         this.socket = socket;
-        this.ip = request.socket.remoteAddress;
+        this.ip = request.headers["x-forwarded-for"] || request.socket.remoteAddress.slice(7) || "127.0.0.1";
         this.infos = {};
     }
 
