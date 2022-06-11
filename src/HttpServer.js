@@ -4,7 +4,7 @@ const Request = require("./Request");
 
 module.exports = class HttpServer extends EventEmitter {
 
-    /** @type {Http.Server} */
+    /** @type {import("http").Server} */
     #server = null;
 
     constructor() {
@@ -29,7 +29,7 @@ module.exports = class HttpServer extends EventEmitter {
      * @returns {Promise} 
      */
     listen(port) {
-        return new Promise((resolve, reject) => {
+        return new Promise((resolve) => {
             this.#server.listen(port, () => {
                 resolve();
                 this.emit("listening");
