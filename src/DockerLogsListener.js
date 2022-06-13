@@ -3,8 +3,6 @@ const { PassThrough } = require("stream");
 
 module.exports = class DockerLogsListener extends EventEmitter {
 
-    /** @type {import("dockerode").Container} */
-    #container = null;
     #stream = null;
 
     /**
@@ -14,16 +12,17 @@ module.exports = class DockerLogsListener extends EventEmitter {
 
         super();
 
-        this.#container = container;
+        this.container = container;
         this.closed = false;
     }
 
-    listen() {
-        this.#container.logs({ follow: true, stdout: true, stderr: true, since: Math.round(Date.now() / 1000) }, (error, stream) => {
+    listen(from = Date.now()) {
+        this.emit("connecting");
+        this.container.logs({ follow: true, stdout: true, stderr: true, since: Math.floor(from / 1000), timestamps: true }, (error, stream) => {
 
             if (error) {
                 this.emit("error", error);
-                setTimeout(() => { if (!this.closed) this.listen(); }, 500);
+                setTimeout(() => { if (!this.closed) this.listen(from); }, 500);
                 return;
             }
 
@@ -31,13 +30,18 @@ module.exports = class DockerLogsListener extends EventEmitter {
 
             const parser = new PassThrough();
             parser.on("data", (data) => {
-                this.emit("output", data.toString());
+                const date = new Date(data.toString().split(" ").shift());
+                const line = data.toString().split(" ").slice(1).join("\n");
+                if (date.getTime() < from) return;
+                this.emit("output", line, date);
             });
-
-            this.#container.modem.demuxStream(this.#stream, parser, parser);
-            this.#stream.on("close", () => {
+            parser.on("close", () => {
+                this.emit("disconnected");
                 setTimeout(() => { if (!this.closed) this.listen(); }, 500);
             });
+
+            this.container.modem.demuxStream(this.#stream, parser, parser);
+            this.emit("connected");
         });
     }
 

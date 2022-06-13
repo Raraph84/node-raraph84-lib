@@ -4,8 +4,6 @@ const Docker = require("dockerode");
 
 module.exports = class DockerEventListener extends EventEmitter {
 
-    /** @type {import("dockerode")} */
-    #docker = null;
     #stream = null;
 
     /**
@@ -15,12 +13,13 @@ module.exports = class DockerEventListener extends EventEmitter {
 
         super();
 
-        this.#docker = docker;
+        this.docker = docker;
         this.closed = false;
     }
 
     listen() {
-        this.#docker.getEvents((error, stream) => {
+        this.emit("connecting");
+        this.docker.getEvents((error, stream) => {
 
             if (error) {
                 this.emit("error", error);
@@ -42,11 +41,13 @@ module.exports = class DockerEventListener extends EventEmitter {
 
                 this.emit("rawEvent", event);
             });
-
-            this.#stream.pipe(parser);
-            this.#stream.on("close", () => {
+            parser.on("close", () => {
+                this.emit("disconnected");
                 setTimeout(() => { if (!this.closed) this.listen(); }, 500);
             });
+
+            this.#stream.pipe(parser);
+            this.emit("connected");
         });
     }
 
