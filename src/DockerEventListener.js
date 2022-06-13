@@ -41,7 +41,8 @@ module.exports = class DockerEventListener extends EventEmitter {
 
                 this.emit("rawEvent", event);
             });
-            parser.on("close", () => {
+
+            this.#stream.on("close", () => {
                 this.emit("disconnected");
                 setTimeout(() => { if (!this.closed) this.listen(); }, 500);
             });

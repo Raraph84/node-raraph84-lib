@@ -31,11 +31,12 @@ module.exports = class DockerLogsListener extends EventEmitter {
             const parser = new PassThrough();
             parser.on("data", (data) => {
                 const date = new Date(data.toString().split(" ").shift());
-                const line = data.toString().split(" ").slice(1).join("\n");
+                const line = data.toString().split(" ").slice(1).join(" ");
                 if (date.getTime() < from) return;
                 this.emit("output", line, date);
             });
-            parser.on("close", () => {
+
+            this.#stream.on("close", () => {
                 this.emit("disconnected");
                 setTimeout(() => { if (!this.closed) this.listen(); }, 500);
             });
