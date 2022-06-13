@@ -1,26 +1,25 @@
 const EventEmitter = require("events");
 const { PassThrough } = require("stream");
-const Docker = require("dockerode");
 
-module.exports = class DockerEventListener extends EventEmitter {
+module.exports = class DockerLogsListener extends EventEmitter {
 
-    /** @type {import("dockerode")} */
-    #docker = null;
+    /** @type {import("dockerode").Container} */
+    #container = null;
     #stream = null;
 
     /**
-     * @param {import("dockerode")} docker 
+     * @param {import("dockerode").Container} container 
      */
-    constructor(docker = new Docker()) {
+    constructor(container) {
 
         super();
 
-        this.#docker = docker;
+        this.#container = container;
         this.closed = false;
     }
 
     listen() {
-        this.#docker.getEvents((error, stream) => {
+        this.#container.logs({ follow: true, stdout: true, stderr: true, since: Math.round(Date.now() / 1000) }, (error, stream) => {
 
             if (error) {
                 this.emit("error", error);
@@ -32,18 +31,10 @@ module.exports = class DockerEventListener extends EventEmitter {
 
             const parser = new PassThrough();
             parser.on("data", (data) => {
-
-                let event;
-                try {
-                    event = JSON.parse(data.toString());
-                } catch {
-                    return;
-                }
-
-                this.emit("rawEvent", event);
+                this.emit("output", data.toString());
             });
 
-            this.#stream.pipe(parser);
+            this.#container.modem.demuxStream(this.#stream, parser, parser);
             this.#stream.on("close", () => {
                 setTimeout(() => { if (!this.closed) this.listen(); }, 500);
             });
