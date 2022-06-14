@@ -18,7 +18,7 @@ module.exports = class DockerLogsListener extends EventEmitter {
 
     listen(from = Date.now()) {
         this.emit("connecting");
-        this.container.logs({ follow: true, stdout: true, stderr: true, since: Math.floor(from / 1000), timestamps: true }, (error, stream) => {
+        this.container.inspect((error, infos) => {
 
             if (error) {
                 this.emit("error", error);
@@ -26,23 +26,36 @@ module.exports = class DockerLogsListener extends EventEmitter {
                 return;
             }
 
-            this.#stream = stream;
+            this.container.logs({ follow: true, stdout: true, stderr: true, since: Math.floor(from / 1000), timestamps: true }, (error, stream) => {
 
-            const parser = new PassThrough();
-            parser.on("data", (data) => {
-                const date = new Date(data.toString().split(" ").shift());
-                const line = data.toString().split(" ").slice(1).join(" ");
-                if (date.getTime() < from) return;
-                this.emit("output", line, date);
+                if (error) {
+                    this.emit("error", error);
+                    setTimeout(() => { if (!this.closed) this.listen(from); }, 500);
+                    return;
+                }
+
+                this.#stream = stream;
+
+                const parser = new PassThrough();
+                parser.on("data", (data) => {
+                    const date = new Date(data.toString().split(" ").shift());
+                    const line = data.toString().split(" ").slice(1).join(" ").replace(/\n|\r/g, "");
+                    if (date.getTime() < from) return;
+                    this.emit("output", line, date);
+                });
+
+                this.#stream.on("close", () => {
+                    this.emit("disconnected");
+                    parser.end();
+                    setTimeout(() => { if (!this.closed) this.listen(); }, 500);
+                });
+
+                if (infos.Config.Tty)
+                    this.#stream.pipe(parser);
+                else
+                    this.container.modem.demuxStream(this.#stream, parser, parser);
+                this.emit("connected");
             });
-
-            this.#stream.on("close", () => {
-                this.emit("disconnected");
-                setTimeout(() => { if (!this.closed) this.listen(); }, 500);
-            });
-
-            this.container.modem.demuxStream(this.#stream, parser, parser);
-            this.emit("connected");
         });
     }
 
