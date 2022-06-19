@@ -201,10 +201,9 @@ const getTranslatedMonth = (date) => {
  * @returns {Date} 
  */
 const getMonday = (date) => {
-    let monday = this.getDate(date.getFullYear(), date.getMonth() + 1, date.getDate());
-    while (monday.getDay() !== 1)
-        monday.setDate(monday.getDate() - 1);
-    return monday;
+    while (date.getDay() !== 1)
+        date.setDate(date.getDate() - 1);
+    return date;
 }
 
 /**
