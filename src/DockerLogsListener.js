@@ -27,7 +27,7 @@ module.exports = class DockerLogsListener extends EventEmitter {
             }
 
             if (typeof from === "undefined")
-                from = new Date(infos.State.StartedAt).getDate();
+                from = new Date(infos.State.StartedAt).getTime();
 
             this.container.logs({ follow: true, stdout: true, stderr: true, since: Math.floor(from / 1000), timestamps: true }, (error, stream) => {
 
