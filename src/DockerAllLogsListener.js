@@ -31,7 +31,7 @@ module.exports = class DockerAllLogsListener extends EventEmitter {
 
                 const logsListener = new DockerLogsListener(container);
                 logsListener.on("output", (output, date) => this.emit("output", container, output, date));
-                logsListener.listen(0);
+                logsListener.listen();
                 this.#logsListeners.push(logsListener);
 
             } else if (event.Action === "die") {
