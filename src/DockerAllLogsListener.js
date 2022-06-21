@@ -41,7 +41,7 @@ module.exports = class DockerAllLogsListener extends EventEmitter {
         });
     }
 
-    listen(from = Date.now()) {
+    listen(from) {
 
         this.#eventListener.listen();
 

@@ -16,7 +16,7 @@ module.exports = class DockerLogsListener extends EventEmitter {
         this.closed = false;
     }
 
-    listen(from = Date.now()) {
+    listen(from) {
         this.emit("connecting");
         this.container.inspect((error, infos) => {
 
@@ -25,6 +25,9 @@ module.exports = class DockerLogsListener extends EventEmitter {
                 setTimeout(() => { if (!this.closed) this.listen(from); }, 500);
                 return;
             }
+
+            if (typeof from === "undefined")
+                from = new Date(infos.State.StartedAt).getDate();
 
             this.container.logs({ follow: true, stdout: true, stderr: true, since: Math.floor(from / 1000), timestamps: true }, (error, stream) => {
 
