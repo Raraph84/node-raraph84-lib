@@ -41,7 +41,7 @@ module.exports = class DockerAllLogsListener extends EventEmitter {
         });
     }
 
-    listen() {
+    listen(from = Date.now()) {
 
         this.#eventListener.listen();
 
@@ -49,7 +49,7 @@ module.exports = class DockerAllLogsListener extends EventEmitter {
 
             const logsListener = new DockerLogsListener(container);
             logsListener.on("output", (output, date) => this.emit("output", container, output, date));
-            logsListener.listen();
+            logsListener.listen(from);
             this.#logsListeners.push(logsListener);
         }));
     }
