@@ -1,6 +1,6 @@
 {
   "name": "raraph84-lib",
-  "version": "2.9.2",
+  "version": "2.10.0",
   "description": "Ma librairie perso pour coder plus rapidement :)",
   "main": "./src/index.js",
   "repository": {

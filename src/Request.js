@@ -1,8 +1,5 @@
 module.exports = class Request {
 
-    /** @type {import("http").ServerResponse} */
-    #res = null;
-
     /**
      * @param {import("http").IncomingMessage} req 
      * @param {import("http").ServerResponse} res 
@@ -10,7 +7,8 @@ module.exports = class Request {
      */
     constructor(req, res, data) {
 
-        this.#res = res;
+        this.res = res;
+        this.req = req;
         this.data = data;
         this.method = req.method.toUpperCase();
         this.headers = req.headers;
@@ -28,7 +26,7 @@ module.exports = class Request {
      * @param {String} value 
      */
     setHeader(name, value) {
-        this.#res.setHeader(name, value);
+        this.res.setHeader(name, value);
     }
 
     /**
@@ -38,13 +36,13 @@ module.exports = class Request {
     end(code, data) {
 
         if (typeof data === "object" || typeof data === "string")
-            this.#res.setHeader("Content-Type", "application/json");
+            this.res.setHeader("Content-Type", "application/json");
 
-        this.#res.writeHead(code);
+        this.res.writeHead(code);
 
-        if (typeof data === "object") this.#res.end(JSON.stringify(Object.assign({ code }, data)));
-        else if (typeof data === "string") this.#res.end(JSON.stringify({ code, message: data }));
-        else this.#res.end();
+        if (typeof data === "object") this.res.end(JSON.stringify(Object.assign({ code }, data)));
+        else if (typeof data === "string") this.res.end(JSON.stringify({ code, message: data }));
+        else this.res.end();
     }
 
     /**
@@ -53,8 +51,8 @@ module.exports = class Request {
      */
     endFile(buffer, mime) {
 
-        this.#res.setHeader("Content-Type", mime);
-        this.#res.writeHead(200);
-        this.#res.end(buffer);
+        this.res.setHeader("Content-Type", mime);
+        this.res.writeHead(200);
+        this.res.end(buffer);
     }
 }
