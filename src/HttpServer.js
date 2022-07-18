@@ -30,10 +30,16 @@ module.exports = class HttpServer extends EventEmitter {
      */
     listen(port) {
         return new Promise((resolve) => {
-            this.#server.listen(port, () => {
-                resolve();
-                this.emit("listening");
-            });
+            this.#server.listen(port, () => resolve());
+        });
+    }
+
+    /**
+     * @returns {Promise} 
+     */
+    close() {
+        return new Promise((resolve) => {
+            this.#server.close(() => resolve());
         });
     }
 }

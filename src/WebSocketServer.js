@@ -23,10 +23,7 @@ module.exports = class WebSocketServer extends EventEmitter {
         return new Promise((resolve) => {
 
             this.#server = new WebSocket.Server({ port });
-            this.#server.on("listening", () => {
-                resolve();
-                this.emit("listening");
-            });
+            this.#server.on("listening", () => resolve());
             this.#server.on("connection", (socket, request) => {
 
                 const client = new WebSocketClient(socket, request);
@@ -67,6 +64,15 @@ module.exports = class WebSocketServer extends EventEmitter {
                     this.emit("close", client);
                 });
             });
+        });
+    }
+
+    /**
+     * @returns {Promise} 
+     */
+    close() {
+        return new Promise((resolve) => {
+            this.#server.close(() => resolve());
         });
     }
 }
