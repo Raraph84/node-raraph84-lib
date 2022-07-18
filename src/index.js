@@ -8,6 +8,7 @@ module.exports = {
     HttpServer: require("./HttpServer"),
     MojangAPI: require("./MojangAPI"),
     Request: require("./Request"),
+    StartTasksManager: require("./StartTasksManager"),
     WebSocketClient: require("./WebSocketClient"),
     WebSocketServer: require("./WebSocketServer"),
     formatDuration: OtherUtils.formatDuration,
