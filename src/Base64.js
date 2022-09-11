@@ -1,3 +1,6 @@
+/**
+ * @deprecated This file will be deleted in the next major release.
+ */
 module.exports = class Base64 {
 
     /**

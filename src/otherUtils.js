@@ -223,7 +223,7 @@ const sortObjectsByStringField = (items, func) => {
     });
 }
 
-const getConfig = (dirPath) => Object.assign(require(dirPath + "/config.json"), Fs.existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : {});
+const getConfig = (dirPath) => ({ ...require(dirPath + "/config.json"), ...(Fs.existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : {}) });
 
 module.exports = {
     formatDuration,

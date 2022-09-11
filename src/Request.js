@@ -40,8 +40,8 @@ module.exports = class Request {
 
         this.res.writeHead(code);
 
-        if (typeof data === "object") this.res.end(JSON.stringify(Object.assign({ code }, data)));
-        else if (typeof data === "string") this.res.end(JSON.stringify({ code, message: data }));
+        if (typeof data === "object") this.res.end(JSON.stringify({ ...data, code }));
+        else if (typeof data === "string") this.res.end(JSON.stringify({ message: data, code }));
         else this.res.end();
     }
 
