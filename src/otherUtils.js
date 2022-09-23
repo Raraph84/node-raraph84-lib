@@ -1,4 +1,5 @@
 const Fs = require("fs");
+const Path = require("path");
 
 /**
  * Format duration in french
@@ -162,10 +163,12 @@ const randomString = (length) => {
 }
 
 /**
+ * Get current date in french
  * @param {Number} year 
  * @param {Number} month 
  * @param {Number} day 
  * @returns {Date} 
+ * @deprecated 
  */
 const getDate = (year, month, day) => {
     const date = new Date(year, month - 1, day, 1);
@@ -174,6 +177,7 @@ const getDate = (year, month, day) => {
 }
 
 /**
+ * Get current week number from the start of the year
  * @param {Date} date 
  * @returns {Number} 
  */
@@ -188,6 +192,7 @@ const getWeekNumber = (date) => {
 }
 
 /**
+ * Get month name in french from a date
  * @param {Date} date 
  * @returns {String} 
  */
@@ -197,6 +202,7 @@ const getTranslatedMonth = (date) => {
 }
 
 /**
+ * Get the date of the monday of the week of the date
  * @param {Date} date 
  * @returns {Date} 
  */
@@ -207,6 +213,7 @@ const getMonday = (date) => {
 }
 
 /**
+ * Add dots to a too long string
  * @param {String} text 
  * @param {Number} limit 
  * @returns {String} 
@@ -223,7 +230,31 @@ const sortObjectsByStringField = (items, func) => {
     });
 }
 
+/**
+ * Get the config of the project
+ * @param {String} dirPath 
+ * @returns {Object} 
+ */
 const getConfig = (dirPath) => ({ ...require(dirPath + "/config.json"), ...(Fs.existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : {}) });
+
+/**
+ * Copy a file or a directory recursively
+ * @param {String} src 
+ * @param {String} dest 
+ */
+const copyFile = (src, dest) => {
+
+    if (Fs.statSync(src).isDirectory()) {
+
+        if (!Fs.existsSync(dest))
+            Fs.mkdirSync(dest, { recursive: true });
+
+        for (const file of Fs.readdirSync(src))
+            copyFile(Path.join(src, file), Path.join(dest, file));
+
+    } else
+        Fs.copyFileSync(src, dest);
+}
 
 module.exports = {
     formatDuration,
@@ -238,5 +269,6 @@ module.exports = {
     getMonday,
     addDots,
     sortObjectsByStringField,
-    getConfig
+    getConfig,
+    copyFile
 }
