@@ -155,8 +155,7 @@ const query = (database, sql, args = []) => new Promise((resolve, reject) => {
  * @param {Number} length 
  * @returns {String} 
  */
-const randomString = (length) => {
-    const chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+const randomString = (length, chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") => {
     let result = "";
     for (let i = 0; i < length; i++) result += chars.charAt(Math.floor(Math.random() * chars.length));
     return result;
