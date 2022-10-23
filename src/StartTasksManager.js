@@ -1,38 +1,72 @@
 module.exports = class StartTasksManager {
 
-    /** @type {Object[]} */
+    /** @type {Task[]} */
     #tasks = [];
 
     /**
-     * @param {Function} run 
-     * @param {Function} terminate 
+     * @param {loadCallback} load 
+     * @param {unloadCallback} unload 
      */
-    addTask(run, terminate) {
-        this.#tasks.push({ run, terminate });
+    addTask(load, unload) {
+        this.#tasks.push({ load, unload });
     }
 
     run() {
 
-        const terminateTask = (task) => {
+        /**
+         * @param {Number} lastTaskIndex 
+         */
+        const unloadNextTask = (lastTaskIndex) => {
 
-            task.terminate(() => {
-                const nextTask = this.#tasks[this.#tasks.indexOf(task) - 1];
-                if (nextTask) terminateTask(nextTask);
-            });
+            const nextTask = this.#tasks[lastTaskIndex - 1];
+            if (!nextTask) return;
+
+            try {
+                nextTask.unload(() => {
+                    unloadNextTask(this.#tasks.indexOf(nextTask));
+                });
+            } catch (error) {
+                console.trace(error);
+            }
         }
 
-        const runTask = (task) => {
+        /**
+         * @param {Number} lastTaskIndex 
+         */
+        const loadNextTask = (lastTaskIndex) => {
 
-            task.run(() => {
-                const nextTask = this.#tasks[this.#tasks.indexOf(task) + 1];
-                if (nextTask) runTask(nextTask);
-            }, () => {
-                const nextTask = this.#tasks[this.#tasks.indexOf(task) - 1];
-                if (nextTask) terminateTask(nextTask);
-            });
+            const nextTask = this.#tasks[lastTaskIndex + 1];
+            if (!nextTask) return;
+
+            try {
+                nextTask.load(() => {
+                    loadNextTask(this.#tasks.indexOf(nextTask));
+                }, () => {
+                    unloadNextTask(this.#tasks.indexOf(nextTask));
+                });
+            } catch (error) {
+                console.trace(error);
+                unloadNextTask(this.#tasks.indexOf(nextTask));
+            }
         }
 
-        const nextTask = this.#tasks[0];
-        if (nextTask) runTask(nextTask);
+        loadNextTask(-1);
     }
 }
+
+/**
+ * @callback loadCallback 
+ * @param {() => void} resolve 
+ * @param {() => void} reject 
+ */
+
+/**
+ * @callback unloadCallback 
+ * @param {() => void} resolve 
+ */
+
+/**
+ * @typedef {Object} Task 
+ * @property {loadCallback} load 
+ * @property {unloadCallback} unload 
+ */
