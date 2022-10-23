@@ -8,7 +8,8 @@ module.exports = {
     HttpServer: require("./HttpServer"),
     MojangAPI: require("./MojangAPI"),
     Request: require("./Request"),
-    StartTasksManager: require("./StartTasksManager"),
+    TaskManager: require("./TaskManager"),
+    StartTasksManager: require("./TaskManager"), // Deprecated
     WebSocketClient: require("./WebSocketClient"),
     WebSocketServer: require("./WebSocketServer"),
     ...OtherUtils

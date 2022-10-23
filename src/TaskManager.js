@@ -1,4 +1,4 @@
-module.exports = class StartTasksManager {
+module.exports = class TaskManager {
 
     /** @type {Task[]} */
     #tasks = [];
