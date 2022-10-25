@@ -131,7 +131,7 @@ const fetchAllUsers = async (reaction) => {
     }
 
     await fetch();
-    resolve(result);
+    return result;
 }
 
 /**
