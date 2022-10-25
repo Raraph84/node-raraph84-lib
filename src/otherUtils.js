@@ -116,25 +116,23 @@ const addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 1
  * @param {import("discord.js").MessageReaction} reaction 
  * @returns {Promise<import("discord.js").User[]>} 
  */
-const fetchAllUsers = (reaction) => new Promise((resolve, reject) => {
+const fetchAllUsers = async (reaction) => {
 
     const result = [];
 
-    const fetch = (after = null) => {
+    const fetch = async (after) => {
 
-        reaction.users.fetch({ after }).then((users) => {
+        const users = await reaction.users.fetch({ after, limit: 100 });
+        for (const user of users.values())
+            result.push(user)
 
-            if (users.size < 1) {
-                resolve(result);
-            } else {
-                users.forEach((user) => result.push(user));
-                fetch(users.last().id);
-            }
-        });
+        if (users.size >= 100)
+            await fetch(users.last().id);
     }
 
-    fetch();
-});
+    await fetch();
+    resolve(result);
+}
 
 /**
  * Run sql query with await/async
