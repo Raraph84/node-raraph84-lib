@@ -27,6 +27,11 @@ module.exports = class DockerEventListener extends EventEmitter {
                 return;
             }
 
+            if (this.closed) {
+                stream.destroy();
+                return;
+            }
+
             this.#stream = stream;
 
             const parser = new PassThrough();
@@ -55,6 +60,6 @@ module.exports = class DockerEventListener extends EventEmitter {
 
     close() {
         this.closed = true;
-        this.#stream.destroy();
+        if (this.#stream) this.#stream.destroy();
     }
 }
