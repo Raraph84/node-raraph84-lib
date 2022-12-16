@@ -3,17 +3,19 @@ module.exports = class Request {
     /**
      * @param {import("http").IncomingMessage} req 
      * @param {import("http").ServerResponse} res 
-     * @param {String} data 
+     * @param {String} body 
      */
-    constructor(req, res, data) {
+    constructor(req, res, body) {
 
         this.res = res;
         this.req = req;
-        this.data = data;
+        this.body = body;
+        this.data = body; // Deprecated
         this.method = req.method.toUpperCase();
         this.headers = req.headers;
         this.ip = req.headers["x-forwarded-for"] || (req.socket.remoteAddress.startsWith("::ffff:") ? req.socket.remoteAddress.slice(7) : req.socket.remoteAddress);
         this.urlParams = {};
+        this.date = new Date();
 
         const urlSplitted = decodeURI(req.url).split("?");
         this.url = urlSplitted.shift();
@@ -31,17 +33,17 @@ module.exports = class Request {
 
     /**
      * @param {Number} code 
-     * @param {Object|String} data 
+     * @param {Object|String} body 
      */
-    end(code, data) {
+    end(code, body) {
 
-        if (typeof data === "object" || typeof data === "string")
+        if (typeof body === "object" || typeof body === "string")
             this.res.setHeader("Content-Type", "application/json");
 
         this.res.writeHead(code);
 
-        if (typeof data === "object") this.res.end(JSON.stringify({ ...data, code }));
-        else if (typeof data === "string") this.res.end(JSON.stringify({ message: data, code }));
+        if (typeof body === "object") this.res.end(JSON.stringify({ ...body, code }));
+        else if (typeof body === "string") this.res.end(JSON.stringify({ message: body, code }));
         else this.res.end();
     }
 
