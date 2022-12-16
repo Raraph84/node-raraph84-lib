@@ -15,7 +15,7 @@ module.exports = class Request {
         this.headers = req.headers;
         this.ip = req.headers["x-forwarded-for"] || (req.socket.remoteAddress.startsWith("::ffff:") ? req.socket.remoteAddress.slice(7) : req.socket.remoteAddress);
         this.urlParams = {};
-        this.date = new Date();
+        this.date = Date.now();
 
         const urlSplitted = decodeURI(req.url).split("?");
         this.url = urlSplitted.shift();
