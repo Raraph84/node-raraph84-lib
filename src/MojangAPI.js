@@ -12,7 +12,7 @@ module.exports = class MojangAPI {
 
         if (req.status === 404)
             throw "This player does not exist";
-        else if (req.status === 200)
+        else if (req.status === 400)
             throw "Not valid player name";
         else if (req.status !== 200)
             throw "Not handled error";
