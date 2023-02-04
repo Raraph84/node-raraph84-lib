@@ -10,8 +10,12 @@ module.exports = class MojangAPI {
 
         const req = await fetch("https://api.mojang.com/users/profiles/minecraft/" + playerName);
 
-        if (req.status === 204)
+        if (req.status === 404)
             throw "This player does not exist";
+        else if (req.status === 200)
+            throw "Not valid player name";
+        else if (req.status !== 200)
+            throw "Not handled error";
 
         const player = await req.json();
 
@@ -38,6 +42,10 @@ module.exports = class MojangAPI {
 
         if (req.status === 204)
             throw "This player does not exist";
+        else if (req.status === 400)
+            throw "Not valid UUID";
+        else if (req.status !== 200)
+            throw "Not handled error";
 
         const player = await req.json();
 
