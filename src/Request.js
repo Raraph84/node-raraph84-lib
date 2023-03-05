@@ -1,3 +1,6 @@
+const { unescape } = require("querystring");
+const { URLSearchParams } = require("url");
+
 module.exports = class Request {
 
     /**
@@ -10,15 +13,16 @@ module.exports = class Request {
         this.res = res;
         this.req = req;
         this.body = body;
-        this.data = body; // Deprecated
+        /** @deprecated */
+        this.data = body;
         this.method = req.method.toUpperCase();
         this.headers = req.headers;
         this.ip = req.headers["x-forwarded-for"] || (req.socket.remoteAddress.startsWith("::ffff:") ? req.socket.remoteAddress.slice(7) : req.socket.remoteAddress);
         this.urlParams = {};
         this.date = Date.now();
 
-        const urlSplitted = decodeURI(req.url).split("?");
-        this.url = urlSplitted.shift();
+        const urlSplitted = req.url.split("?");
+        this.url = unescape(urlSplitted.shift());
         this.searchParams = new URLSearchParams(urlSplitted.join("?"));
         if (this.url.endsWith("/") && this.url !== "/") this.url = this.url.slice(0, this.url.length - 1);
     }
