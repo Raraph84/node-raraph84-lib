@@ -3,8 +3,8 @@ const Path = require("path");
 
 /**
  * Format duration in french
- * @param {Number} time 
- * @returns {String} 
+ * @param {number} time 
+ * @returns {string} 
  */
 const formatDuration = (time) => {
 
@@ -93,21 +93,21 @@ const filterEndpointsByPath = (endpoints, request) => endpoints.filter((endpoint
 /**
  * @typedef Endpoint 
  * @property {EndpointInfos} infos 
- * @property {Object} params 
+ * @property {object} params 
  * @property {Function} run 
  */
 
 /**
  * @typedef EndpointInfos 
- * @property {String} path 
- * @property {String} method 
- * @property {Boolean} requireAuth 
+ * @property {string} path 
+ * @property {string} method 
+ * @property {boolean} requireAuth 
  */
 
 /**
  * Add dashes to uuid
- * @param {String} uuid 
- * @returns {String} 
+ * @param {string} uuid 
+ * @returns {string} 
  */
 const addDashesToUuid = (uuid) => `${uuid.substring(0, 8)}-${uuid.substring(8, 12)}-${uuid.substring(12, 16)}-${uuid.substring(16, 20)}-${uuid.substring(20)}`;
 
@@ -137,9 +137,9 @@ const fetchAllUsers = async (reaction) => {
 /**
  * Run sql query with await/async
  * @param {import("mysql").Pool} database 
- * @param {String} sql 
- * @param {String[]} args 
- * @returns {Promise} 
+ * @param {string} sql 
+ * @param {string[]} args 
+ * @returns {Promise<import("mysql").FieldInfo[]>} 
  */
 const query = (database, sql, args = []) => new Promise((resolve, reject) => {
     database.query(sql, args, (error, result) => {
@@ -150,8 +150,8 @@ const query = (database, sql, args = []) => new Promise((resolve, reject) => {
 
 /**
  * Generate random alphanumeric string with the given length
- * @param {Number} length 
- * @returns {String} 
+ * @param {number} length 
+ * @returns {string} 
  */
 const randomString = (length, chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789") => {
     let result = "";
@@ -161,9 +161,9 @@ const randomString = (length, chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNO
 
 /**
  * Get current date in french
- * @param {Number} year 
- * @param {Number} month 
- * @param {Number} day 
+ * @param {number} year 
+ * @param {number} month 
+ * @param {number} day 
  * @returns {Date} 
  * @deprecated 
  */
@@ -176,7 +176,7 @@ const getDate = (year, month, day) => {
 /**
  * Get current week number from the start of the year
  * @param {Date} date 
- * @returns {Number} 
+ * @returns {number} 
  */
 const getWeekNumber = (date) => {
     const tdt = new Date(date.valueOf());
@@ -191,7 +191,7 @@ const getWeekNumber = (date) => {
 /**
  * Get month name in french from a date
  * @param {Date} date 
- * @returns {String} 
+ * @returns {string} 
  */
 const getTranslatedMonth = (date) => {
     const months = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
@@ -211,9 +211,9 @@ const getMonday = (date) => {
 
 /**
  * Add dots to a too long string
- * @param {String} text 
- * @param {Number} limit 
- * @returns {String} 
+ * @param {string} text 
+ * @param {number} limit 
+ * @returns {string} 
  */
 const addDots = (text, limit) => text.length > limit ? text.substring(0, limit - 3) + "..." : text;
 
@@ -229,15 +229,15 @@ const sortObjectsByStringField = (items, func) => {
 
 /**
  * Get the config of the project
- * @param {String} dirPath 
- * @returns {Object} 
+ * @param {string} dirPath 
+ * @returns {object} 
  */
 const getConfig = (dirPath) => ({ ...require(dirPath + "/config.json"), ...(Fs.existsSync(dirPath + "/config.dev.json") ? require(dirPath + "/config.dev.json") : {}) });
 
 /**
  * Copy a file or a directory recursively
- * @param {String} src 
- * @param {String} dest 
+ * @param {string} src 
+ * @param {string} dest 
  */
 const copyFile = (src, dest) => {
 
