@@ -1,5 +1,3 @@
-const { default: fetch } = require("node-fetch");
-
 module.exports = class MojangAPI {
 
     /**
