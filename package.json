@@ -1,6 +1,6 @@
 {
   "name": "raraph84-lib",
-  "version": "2.16.5",
+  "version": "2.16.6",
   "description": "Ma librairie perso pour coder plus rapidement :)",
   "main": "./src/index.js",
   "repository": {
@@ -14,12 +14,11 @@
   },
   "homepage": "https://github.com/Raraph84/node-raraph84-lib#readme",
   "dependencies": {
-    "dockerode": "^3.3.2",
-    "node-fetch": "^2.6.7",
-    "ws": "^8.7.0"
+    "dockerode": "^4.0.0",
+    "ws": "^8.14.2"
   },
   "devDependencies": {
-    "discord.js": "^13.8.0",
+    "discord.js": "^13.16.0",
     "mysql": "^2.18.1"
   }
 }
