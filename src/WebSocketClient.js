@@ -11,7 +11,7 @@ module.exports = class WebSocketClient {
     }
 
     emitEvent(event, data = {}) {
-        this.socket.send(JSON.stringify({ ...data, event }));
+        this.socket.send(JSON.stringify({ event, ...data }));
     }
 
     close(reason) {
