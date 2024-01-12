@@ -6,15 +6,21 @@ module.exports = class Request {
     /**
      * @param {import("http").IncomingMessage} req 
      * @param {import("http").ServerResponse} res 
-     * @param {String} body 
+     * @param {Buffer} body 
      */
     constructor(req, res, body) {
 
         this.res = res;
         this.req = req;
-        this.body = body;
+        this.rawBody = body;
+        this.body = body.toString();
         /** @deprecated */
-        this.data = body;
+        this.data = body.toString();
+        this.jsonBody = null;
+        try {
+            this.jsonBody = JSON.parse(this.body);
+        } catch (error) {
+        }
         this.method = req.method.toUpperCase();
         this.headers = req.headers;
         this.ip = req.headers["x-forwarded-for"] || (req.socket.remoteAddress.startsWith("::ffff:") ? req.socket.remoteAddress.slice(7) : req.socket.remoteAddress);
@@ -28,16 +34,16 @@ module.exports = class Request {
     }
 
     /**
-     * @param {String} name 
-     * @param {String} value 
+     * @param {string} name 
+     * @param {string} value 
      */
     setHeader(name, value) {
         this.res.setHeader(name, value);
     }
 
     /**
-     * @param {Number} code 
-     * @param {Object|String} body 
+     * @param {number} code 
+     * @param {object|string} body 
      */
     end(code, body) {
 
@@ -52,8 +58,8 @@ module.exports = class Request {
     }
 
     /**
-     * @param {Buffer} buffer 
-     * @param {String} mime 
+     * @param {buffer} buffer 
+     * @param {string} mime 
      */
     endFile(buffer, mime) {
 

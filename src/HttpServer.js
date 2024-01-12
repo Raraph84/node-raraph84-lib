@@ -13,19 +13,19 @@ module.exports = class HttpServer extends EventEmitter {
 
         this.#server = Http.createServer((req, res) => {
 
-            let data = "";
-            req.on("data", (chunk) => data += chunk);
+            let body = Buffer.alloc(0);
+            req.on("data", (chunk) => body = Buffer.concat([body, chunk]));
 
             req.on("end", () => {
 
-                this.emit("rawRequest", req, res, data);
-                this.emit("request", new Request(req, res, data));
+                this.emit("rawRequest", req, res, body.toString());
+                this.emit("request", new Request(req, res, body));
             });
         });
     }
 
     /**
-     * @param {Number} port 
+     * @param {number} port 
      * @returns {Promise} 
      */
     listen(port) {
