@@ -5,13 +5,13 @@ const Request = require("./Request");
 module.exports = class HttpServer extends EventEmitter {
 
     /** @type {import("http").Server} */
-    #server = null;
+    server = null;
 
     constructor() {
 
         super();
 
-        this.#server = Http.createServer((req, res) => {
+        this.server = Http.createServer((req, res) => {
 
             let body = Buffer.alloc(0);
             req.on("data", (chunk) => body = Buffer.concat([body, chunk]));
@@ -30,7 +30,7 @@ module.exports = class HttpServer extends EventEmitter {
      */
     listen(port) {
         return new Promise((resolve) => {
-            this.#server.listen(port, () => resolve());
+            this.server.listen(port, () => resolve());
         });
     }
 
@@ -39,7 +39,7 @@ module.exports = class HttpServer extends EventEmitter {
      */
     close() {
         return new Promise((resolve) => {
-            this.#server.close(() => resolve());
+            this.server.close(() => resolve());
         });
     }
 }

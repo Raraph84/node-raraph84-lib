@@ -5,7 +5,7 @@ const WebSocketClient = require("./WebSocketClient");
 module.exports = class WebSocketServer extends EventEmitter {
 
     /** @type {import("ws").Server} */
-    #server = null;
+    server = null;
 
     constructor() {
 
@@ -16,15 +16,18 @@ module.exports = class WebSocketServer extends EventEmitter {
     }
 
     /**
-     * @param {Number} port 
+     * @param {number|import("ws").ServerOptions} options 
      * @returns {Promise} 
      */
-    listen(port) {
+    listen(options) {
         return new Promise((resolve) => {
 
-            this.#server = new WebSocket.Server({ port });
-            this.#server.on("listening", () => resolve());
-            this.#server.on("connection", (socket, request) => {
+            if (typeof options === "number")
+                options = { port: options };
+
+            this.server = new WebSocket.Server(options);
+            this.server.on("listening", () => resolve());
+            this.server.on("connection", (socket, request) => {
 
                 const client = new WebSocketClient(socket, request);
 
@@ -72,7 +75,7 @@ module.exports = class WebSocketServer extends EventEmitter {
      */
     close() {
         return new Promise((resolve) => {
-            this.#server.close(() => resolve());
+            this.server.close(() => resolve());
         });
     }
 }

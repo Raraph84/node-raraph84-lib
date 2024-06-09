@@ -2,12 +2,12 @@ module.exports = class WebSocketClient {
 
     /**
      * @param {import("ws").WebSocket} socket 
-     * @param {*} request 
+     * @param {import("http").IncomingMessage} request 
      */
     constructor(socket, request) {
         this.socket = socket;
-        this.ip = request.headers["x-forwarded-for"]?.split(", ").pop() || request.socket.remoteAddress.slice(7);
-        this.infos = {};
+        this.ip = request.headers["x-forwarded-for"]?.split(", ").pop() || (request.socket.remoteAddress.startsWith("::ffff:") ? request.socket.remoteAddress.slice(7) : request.socket.remoteAddress);
+        this.infos = {}; // For storing details about the connection
     }
 
     emitEvent(event, data = {}) {

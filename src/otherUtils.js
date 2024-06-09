@@ -140,6 +140,7 @@ const fetchAllUsers = async (reaction) => {
  * @param {string} sql 
  * @param {string[]} args 
  * @returns {Promise<import("mysql").FieldInfo[]>} 
+ * @deprecated Use mysql2/promise instead 
  */
 const query = (database, sql, args = []) => new Promise((resolve, reject) => {
     database.query(sql, args, (error, result) => {
