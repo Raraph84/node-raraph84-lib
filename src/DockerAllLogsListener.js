@@ -1,5 +1,4 @@
 const EventEmitter = require("events");
-const Docker = require("dockerode");
 const DockerEventListener = require("./DockerEventListener");
 const DockerLogsListener = require("./DockerLogsListener");
 
@@ -13,11 +12,18 @@ module.exports = class DockerAllLogsListener extends EventEmitter {
     /**
      * @param {import("dockerode")} docker 
      */
-    constructor(docker = new Docker()) {
+    constructor(docker) {
 
         super();
 
-        this.docker = docker;
+        let Docker;
+        try {
+            Docker = require("dockerode");
+        } catch (error) {
+            throw new Error("Dockerode is not installed. Please install it by running 'npm install dockerode'");
+        }
+
+        this.docker = docker || new Docker();
         this.closed = false;
 
         this.#eventListener = new DockerEventListener(docker);

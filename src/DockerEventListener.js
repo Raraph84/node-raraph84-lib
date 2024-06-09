@@ -1,6 +1,5 @@
 const EventEmitter = require("events");
 const { PassThrough } = require("stream");
-const Docker = require("dockerode");
 
 module.exports = class DockerEventListener extends EventEmitter {
 
@@ -9,11 +8,18 @@ module.exports = class DockerEventListener extends EventEmitter {
     /**
      * @param {import("dockerode")} docker 
      */
-    constructor(docker = new Docker()) {
+    constructor(docker) {
 
         super();
 
-        this.docker = docker;
+        let Docker;
+        try {
+            Docker = require("dockerode");
+        } catch (error) {
+            throw new Error("Dockerode is not installed. Please install it by running 'npm install dockerode'");
+        }
+
+        this.docker = docker || new Docker();
         this.closed = false;
     }
 
